@@ -1,0 +1,86 @@
+<% include ./partials/header %>
+
+	<div class="container-fluid">
+      <h1>Add Habitat</h1>
+      <div style="text-align:center;margin-top:10px;">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContainer">
+          Add Habitat
+        </button>
+      </div>
+      <br><br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              Oxygen Requirements
+            </th>
+            <th>
+              Food Requirements
+            </th>
+            <th>
+              Waste Production
+            </th>
+            <th>
+              Radiation Tolerance
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      <div id="modalContainer" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" >&times;</button>
+              <h4 class="modal-title">Add a Habitat Model</h4>
+            </div>
+            <div class="modal-body">
+              <form id="habitatForm">
+                <div class="form-group">
+                	<p>
+                		<%= astronaut[0] + " " + environment[0] + " " + lab[0] %>
+                	</p>
+                	<select>
+                		<% for(var i=0;i<astronaut.length;i++){ %>
+                		<option value="astro<%= i %>">
+                		<%= astronaut[i]['o2Req'] %> kg/day O2 |
+                		<%= astronaut[i]['foodReq'] %> kcal/day Food |
+                		<%= astronaut[i]['wasteAmt'] %> kg/day Waste |
+                		<%= astronaut[i]['radTol'] %> % fatal cancer risk
+                		</option>
+                		<% } %>
+                	</select>
+                  <input id="o2Req" class="form-control" type="number" name="o2Req" value="">
+                </div>
+                <div class="form-group">
+                  <label for="foodReq">Food Requirements</label>
+                  <input id="foodReq" class="form-control" type="number" name="foodReq" value="">
+                </div>
+                <div class="form-group">
+                  <label for="wasteAmt">Waste Production</label>
+                  <input id="wasteAmt" class="form-control" type="number" name="wasteAmt" value="">
+                </div>
+                <div class="form-group">
+                  <label for="radTol">Radiation Tolerance</label>
+                  <input id="radTol" class="form-control" type="number" name="radTol" value="">
+                </div>
+                <button class="btn btn-primary" type="submit" name="submit">Save</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+
+</body>
+</html>

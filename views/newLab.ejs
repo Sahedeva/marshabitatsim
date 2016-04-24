@@ -1,0 +1,103 @@
+<% include ./partials/header %>
+
+	<div class="container-fluid">
+      <h1>Add Laboratory</h1>
+      <div style="text-align:center;margin-top:10px;">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContainer">
+          Add Laboratory
+        </button>
+      </div>
+      <br><br>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              Purpose
+            </th>
+            <th>
+              Dimensions
+            </th>
+            <th>
+              Equipment
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+      <div id="modalContainer" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" >&times;</button>
+              <h4 class="modal-title">Add a Laboratory Model</h4>
+            </div>
+            <div class="modal-body">
+              <form id="labForm">
+                <div class="form-group">
+                  <label for="title">Purpose of this Module</label>
+                  <input id="title" class="form-control" type="text" name="title" value="">
+                </div>
+                <div class="form-group">
+                	<h4 style="text-align:center;">Dimensions</h4>
+                  <label for="leng">Length in Meters</label>
+                  <input id="leng" class="form-control" type="number" name="leng" value="">
+                  <label for="wide">Width in Meters</label>
+                  <input id="wide" class="form-control" type="number" name="wide" value="">
+                  <label for="high">Height in Meters</label>
+                  <input id="high" class="form-control" type="number" name="high" value="">
+                </div>
+                <div id="equipment" class="form-group">
+                  <h4 style="text-align:center;">Equipment</h4>
+                  <label for="name">Name</label>
+                  <input id="name0" class="form-control" type="text" name="name" value="">
+                  <label for="desc">Description</label><br>
+                  <textarea id="desc0" name="desc" rows="8" cols="40" maxlength="100" spellcheck="true"></textarea><br>
+                  <label for="imageUrl">Image Url</label>
+                  <input id="imageUrl0" class="form-control" type="text" name="imageUrl" value="">
+                  <label for="power">Does this require power?</label>
+                  <input id="power0" class="form-control" type="checkbox" name="power" value="">
+                </div>
+                <button class="add_field_button btn btn-default">Add Another Piece of Equipment</button>
+                <input id="numberOfSteps" style="display: none" type="text" name="numberOfSteps" value="0">
+                <button class="btn btn-primary" type="submit" name="submit">Save</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script>
+      $(document).ready(function() {
+        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+        var add_button = $(".add_field_button"); //Add button ID
+
+        var x = 0; //initlal text box count
+        $(add_button).click(function(e){ //on add input button click
+            e.preventDefault();
+            console.log('clicked on add button');
+            x++; //text box increment
+            $('#numberOfSteps').val(x);
+              
+            var appText = '<h3 style="text-align:center;">Equipment</h3><label for="name">Name</label><input id="name'+x+'" class="form-control" type="text" name="name" value=""><label for="desc">Description</label><br><textarea id="desc'+x+'" name="desc" rows="8" cols="40" maxlength="100" spellcheck="true"></textarea><br><label for="imageUrl">Image Url</label><input id="imageUrl'+x+'" class="form-control" type="text" name="imageUrl" value=""><label for="power">Does this require power?</label><input id="power0" class="form-control" type="checkbox" name="power" value="">';
+            $("#equipment").append(appText); //add input box
+        });
+
+        $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+            e.preventDefault(); $(this).parent('div').remove(); x--;
+            $('#numberOfSteps').val(x);
+        })
+      });
+    </script>
+
+</body>
+</html>

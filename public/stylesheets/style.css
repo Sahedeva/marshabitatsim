@@ -1,0 +1,43 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#navTitle {
+	text-align:right;
+	margin-right:4%;
+	color:red;
+	margin-top:7px;
+}
+
+#collapsedNavTitle {
+	text-align: left;
+	color:red;
+	margin-top:0px;
+}
+
+#indexImage {
+	padding-top: 50px;
+	min-height:578px;
+}
+
+body {
+	background-color: sienna;
+}
+
+#indexContent {
+	padding:50px;
+}
+
+#indexContent {
+	color:blanchedalmond;
+	font-size: 20px;
+}
+
+.equipImage {
+	height:150px;
+}

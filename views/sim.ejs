@@ -1,0 +1,121 @@
+<% include ./partials/header %>
+
+  <body id="indexBody">
+    <div style="color:black;font-size:20px;" class="container">
+        <div class="row">
+            <div class="col-xs-2"><h3 style="margin-left:-35px;color:yellow;">Site Location</h3>
+                <div class="row">
+                    <div class="col-xs-12"><img style="width:280px;margin-left:-110px;" src="https://upload.wikimedia.org/wikipedia/commons/d/da/Biblis_Tholus_THEMIS_day_IR_100m_v11.jpg"> </div>
+                </div>
+            </div>
+            <div class="col-xs-5"><h3 style="text-align:center;color:yellow;">Habitat Layout</h3>
+                <div class="row">
+                    <div style="font-size:14px;" class="col-xs-12">
+                        <div class="row">
+                            <div style="height:100px;background-color:white;" class="col-xs-6">Bio Research</div>
+                            <div style="height:100px;background-color:beige;" class="col-xs-6">Hydroponics</div>
+                        </div>
+                        <div class="row">
+                            <div style="height:100px;background-color:blue;"class="col-xs-5">Water Production</div>
+                            <div style="height:100px;background-color:black;"class="col-xs-2"></div>
+                            <div style="height:100px;background-color:gray;"class="col-xs-5">Oxygen Production</div>
+                        </div> 
+                        <div class="row">
+                            <div style="height:100px;background-color:purple;"class="col-xs-5">Sleeping Quarters</div>
+                            <div style="height:100px;background-color:black;"class="col-xs-2"></div>
+                            <div style="height:100px;background-color:purple;"class="col-xs-5">Sleeping Quarters</div>
+                        </div>  
+                        <div class="row">
+                            <div style="height:100px;background-color:red;"class="col-xs-5">Exercise Room</div>
+                            <div style="height:100px;background-color:black;"class="col-xs-2"></div>
+                            <div style="height:100px;background-color:green;"class="col-xs-5">Toilet Facility</div>
+                        </div>
+                        <div class="row">
+                            <div style="height:100px;background-color:yellow;"class="col-xs-5">Excavator Station</div>
+                            <div style="height:100px;background-color:black;"class="col-xs-2"></div>
+                            <div style="height:100px;background-color:brown;"class="col-xs-5">Geologic Research</div>
+                        </div> 
+                        <div class="row">
+                            <div style="height:100px;background-color:purple;"class="col-xs-5">Sleeping Quarters</div>
+                            <div style="height:100px;background-color:black;"class="col-xs-2"></div>
+                            <div style="height:100px;background-color:purple;"class="col-xs-5">Sleeping Quarters</div>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-5"><h3 style="text-align:center;color:yellow;">Resources</h3>
+                <div style="color: white;" class="row">
+                    <div class="col-xs-12">Mission Day <span id="missDay"></span></div>
+                    <br>
+                    <div class="col-xs-12">Total Oxygen Consumed: <span id="o2Tot"></span> kg</div>
+                    <div class="col-xs-12">Total Water Consumed: <span id="waterTot"></span> liters</div>
+                    <div class="col-xs-12">Total Number of MRE's or Fresh Food Consumed: <span id="foodTot"></span></div>
+                    <div id="hydro" class="col-xs-12"></div>
+                    <div class="col-xs-12">MRE's Remaining: <span id="foodRem"></span></div>
+                    <div class="col-xs-12">Total Waste Incenerated: <span id="wasteTot"></span> kg</div>
+                    <div id="flare" class="col-xs-12"></div>
+                    <div class="col-xs-12">Total Radiation Exposure: <span id="radTot"></span> milliSieverts</div>
+                    <div id="med" class="col-xs-12"></div>
+                    <br><br>
+                    <div class="col-xs-12">Launch Payload for this Habitat</div>
+                    <div class="col-xs-12">Weight of Food: <span id="foodPay"></span>10,000 kg</div>
+                    <div class="col-xs-12">Weight of Water Processors: <span id="waterPay"></span>2500 kg</div>
+                    <div class="col-xs-12">Weight of Miscelaneous Equipment: <span id="equipPay"></span>10,000 kg</div>
+                    <div class="col-xs-12">Weight of Oxygen Processors: <span id="o2Pay"></span>1200 kg</div>
+                    <div class="col-xs-12">Weight of Power Generation Units: <span id="powerPay"></span>1000 kg</div>
+                    <div class="col-xs-12">Weight of Habitat Structual Units: <span id="habPay"></span>5000 kg</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script>
+        var x=0;
+        var food = 5000;
+        var numAstro = 4;
+        var rad = 2;
+        var totalRad =0;
+        var hydroponicResearchMod = true;
+        var freshFood=0;
+        var medStation = true;
+        var missionTimer = setInterval(function(){
+            if(x>=500){
+                clearInterval(missionTimer);
+            }
+            totalRad +=rad;
+            food+=(freshFood);
+            if(Math.floor(Math.random()*100)< 1){
+                $('#flare').append('You were hit by a Solar Flare on Mission Day'+x+'<br>');
+                $('#flare').append('You made it to the cave in time - good thing you added the excavator module.')
+            }
+            if(hydroponicResearchMod){
+                if(Math.floor(Math.random()*100)< 2){
+                    $('#hydro').append('You successfully grew food on Mission Day'+x+'<br>');
+                    freshFood=2;
+                    hydroponicResearchMod=false;
+                }
+            }
+            if(medStation){
+                if(Math.floor(Math.random()*100)< 2){
+                    $('#med').append('You successfully created a novel treatment for radiation exposure on Mission Day'+x+'<br>');
+                    totalRad=-500;
+                    medStation=false;
+                }
+            }
+            $('#missDay').html(x);
+            $('#o2Tot').html(x*numAstro*2);
+            $('#waterTot').html(x*numAstro*3);
+            $('#foodTot').html(x*numAstro*3);
+            $('#foodRem').html(food-(x*numAstro*3));
+            $('#wasteTot').html(4*numAstro*x);
+            $('#radTot').html(totalRad);
+            x++
+
+        },100);
+    </script>
+  </body>
+</html>

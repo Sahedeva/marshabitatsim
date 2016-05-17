@@ -1,3 +1,15 @@
+$('#habitatForm').on('submit',function(e){
+  $.ajax({
+      url: '/habitat',
+      dataType: "json",
+      method: "POST",
+      success: function(data, textStatus, jqXHR){
+        console.log("Success");
+        console.log(data);
+      }
+    });
+});
+
 var contacts = [];
 $('#addForm').on('submit',function(e){
   e.preventDefault();
@@ -12,7 +24,10 @@ $('#addForm').on('submit',function(e){
   $('#wasteAmt').val("");
   $('#radTol').val("");
   $('#modalContainer').modal('hide');
-  $('tbody').append("<tr><td>"+o2Req+" kg/day</td><td>"+foodReq+" kcal/day</td><td>"+wasteAmt+" kg/day</td><td>"+radTol+" % chance of fatal cancer</td></tr>");
+  $('#o2').prepend(o2Req);
+  $('#food').prepend(foodReq);
+  $('#waste').prepend(wasteAmt);
+  $('#rad').prepend(radTol);
   $.ajax({
       url: '/astronaut',
       dataType: "json",

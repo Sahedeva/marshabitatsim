@@ -12,6 +12,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Mars Habitat Simulator' });
 });
 
+router.get('/sim', function(req, res, next) {
+  res.render('sim', { title: 'Habitat Sim' });
+});
+
 router.get('/newAstronaut', function(req,res,next){
 	res.render('newAstronaut', { title: 'New Astronaut'});
 });
@@ -44,6 +48,10 @@ router.get('/newHabitat', function(req,res,next){
   		});
   	});
   });
+});
+
+router.post('/habitat', function(req,res,next){
+	res.redirect('/sim');
 });
 
 router.post('/environment', function(req,res,next){

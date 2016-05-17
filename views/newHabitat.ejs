@@ -31,42 +31,65 @@
       </table>
       <div id="modalContainer" class="modal fade">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div style="width:1000px;background-color:beige;margin-left:-200px;" class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" >&times;</button>
-              <h4 class="modal-title">Add a Habitat Model</h4>
+              <h1 style="text-align:center;" class="modal-title">Add a Habitat Model</h1>
             </div>
             <div class="modal-body">
               <form id="habitatForm">
                 <div class="form-group">
-                	<p>
-                		<%= astronaut[0] + " " + environment[0] + " " + lab[0] %>
-                	</p>
-                	<select>
-                		<% for(var i=0;i<astronaut.length;i++){ %>
-                		<option value="astro<%= i %>">
-                		<%= astronaut[i]['o2Req'] %> kg/day O2 |
-                		<%= astronaut[i]['foodReq'] %> kcal/day Food |
-                		<%= astronaut[i]['wasteAmt'] %> kg/day Waste |
-                		<%= astronaut[i]['radTol'] %> % fatal cancer risk
-                		</option>
+                	<fieldset id="astronaut" form="habitatForm">
+              			<legend>Select Astronaut Model for Simulation</legend>
+              			<% for(var i=0;i<astronaut.length;i++){ %>
+              			<p>
+			                <input type="radio" name="astronaut" id="astro<%= i %>">
+			                <%= astronaut[i]['o2Req'] %> kg/day O2 |
+                			<%= astronaut[i]['foodReq'] %> kcal/day Food |
+                			<%= astronaut[i]['wasteAmt'] %> kg/day Waste |
+                			<%= astronaut[i]['radTol'] %> milliSieverts/yr max allowed exposure
+			              </p>
                 		<% } %>
-                	</select>
-                  <input id="o2Req" class="form-control" type="number" name="o2Req" value="">
+			            </fieldset>
                 </div>
                 <div class="form-group">
-                  <label for="foodReq">Food Requirements</label>
-                  <input id="foodReq" class="form-control" type="number" name="foodReq" value="">
+                	<fieldset id="environment" form="habitatForm">
+              			<legend>Select Environment Model for Simulation</legend>
+              			<% for(var i=0;i<environment.length;i++){ %>
+              			<p>
+			                <input type="radio" name="environment" id="environment<%= i %>">
+			                <%= environment[i]['tempAvg'] %> &#8451; temp average |
+                			<%= environment[i]['radLvl'] %> milliSieverts/yr |
+                			<%= environment[i]['loc'][0] %> latitude, 
+                			<%= environment[i]['loc'][1] %> longitude |<br>
+                			<span style="font-weight:bold;margin-left: 20px;">Geologic Features:</span>
+                			<% for(var j=0;j<environment[i]['geoFtrs'].length;j++) { %>
+                				<button class="geoBtn" name="<%= environment[i]['geoFtrs'][j][0] %>" title="<%= environment[i]['geoFtrs'][j][1] %>" value="<%= environment[i]['geoFtrs'][j][2] %>"><%= environment[i]['geoFtrs'][j][0] %></button>
+                		
+                			<% } %>
+			              </p>
+                		<% } %>
+			            </fieldset>
                 </div>
                 <div class="form-group">
-                  <label for="wasteAmt">Waste Production</label>
-                  <input id="wasteAmt" class="form-control" type="number" name="wasteAmt" value="">
+                  <fieldset id="lab" form="habitatForm">
+              			<legend>Select Modules</legend>
+              			<% for(var i=0;i<lab.length;i++){ %>
+              			<p>
+			                <input type="checkbox" name="lab" id="lab<%= i %>">
+			                <label for="lab"><%= lab[i]['title'] %> |
+                		Dimensions <%= lab[i]['size'][0] %>m x <%= lab[i]['size'][1] %>m x <%= lab[i]['size'][2] %>m |
+                		Equipment:
+                		<% for(var j=0;j<lab[i]['equip'].length;j++) { %>
+                		<button class="labBtn" name="<%= lab[i]['equip'][j][0] %>" title="<%= lab[i]['equip'][j][1] %>" value="<%= lab[i]['equip'][j][2] %>" data="<%= lab[i]['equip'][j][3] %>"><%= lab[i]['equip'][j][0] %></button>
+                		
+                		<% } %></label>
+			              </p>
+                		<% } %>
+			            </fieldset>
                 </div>
-                <div class="form-group">
-                  <label for="radTol">Radiation Tolerance</label>
-                  <input id="radTol" class="form-control" type="number" name="radTol" value="">
-                </div>
-                <button class="btn btn-primary" type="submit" name="submit">Save</button>
+                <a href="/sim">Save</a>
+                <!-- <button class="btn btn-primary" type="submit" name="submit">Save</button> -->
               </form>
             </div>
             <div class="modal-footer">
@@ -75,12 +98,84 @@
           </div>
         </div>
       </div>
-    </div>
 
+      <!-- geo feature modals -->
+      <div id="geoModalContainer" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" >&times;</button>
+              <h2 style="text-align:center;" id="geoTitle" class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+              <p id="geoDesc"></p>
+              <br>
+              <p>Located <span id="geoDistFrom"></span> from the main site.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- lab feature modals -->
+      <div id="labModalContainer" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" >&times;</button>
+              <h2 style="text-align:center;" id="labTitle" class="modal-title"></h2>
+            </div>
+            <div class="modal-body">
+            	<div class="row">
+            		<div class="col-xs-6"><img style="width:250px;" id="labImage" src=""></div>
+            		<div class="col-xs-6">
+            			<p id="labDesc"></p>
+            		</div>
+            	</div>
+              <br>
+              <p id="labPower"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
     <!-- Latest compiled and minified JavaScript -->
     <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="/javascripts/main.js"></script>
+    <script>
+    	$(".geoBtn").on('click',function(e){
+    		e.preventDefault();
+    		var name = $(this).attr('name');
+    		var desc = $(this).attr('title');
+    		var distFrom = $(this).attr('value');
+    		$('#geoTitle').html(name);
+    		$('#geoDesc').html(desc);
+    		$('#geoDistFrom').html(distFrom);
+    		$('#geoModalContainer').modal('show');
+    	});
 
+    	$(".labBtn").on('click',function(e){
+    		e.preventDefault();
+    		var title = $(this).attr('name');
+    		var desc = $(this).attr('title');
+    		var imageUrl = $(this).attr('value');
+    		var power = $(this).attr('data');
+    		$('#labTitle').html(title);
+    		$('#labDesc').html(desc);
+    		$('#labImage').attr('src',imageUrl);
+    		if(power) {
+    			$('#labPower').html("This equipment requires power.")
+    		} else {
+    			$('#labPower').html("This equipment does not require power.")
+    		}
+    		$('#labModalContainer').modal('show');
+    	});
+    </script>
 </body>
 </html>

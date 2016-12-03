@@ -60,12 +60,12 @@
 			                <input type="radio" name="environment" id="environment<%= i %>">
 			                <%= environment[i]['tempAvg'] %> &#8451; temp average |
                 			<%= environment[i]['radLvl'] %> milliSieverts/yr |
-                			<%= environment[i]['loc'][0] %> latitude, 
+                			<%= environment[i]['loc'][0] %> latitude,
                 			<%= environment[i]['loc'][1] %> longitude |<br>
                 			<span style="font-weight:bold;margin-left: 20px;">Geologic Features:</span>
                 			<% for(var j=0;j<environment[i]['geoFtrs'].length;j++) { %>
                 				<button class="geoBtn" name="<%= environment[i]['geoFtrs'][j][0] %>" title="<%= environment[i]['geoFtrs'][j][1] %>" value="<%= environment[i]['geoFtrs'][j][2] %>"><%= environment[i]['geoFtrs'][j][0] %></button>
-                		
+
                 			<% } %>
 			              </p>
                 		<% } %>
@@ -82,7 +82,7 @@
                 		Equipment:
                 		<% for(var j=0;j<lab[i]['equip'].length;j++) { %>
                 		<button class="labBtn" name="<%= lab[i]['equip'][j][0] %>" title="<%= lab[i]['equip'][j][1] %>" value="<%= lab[i]['equip'][j][2] %>" data="<%= lab[i]['equip'][j][3] %>"><%= lab[i]['equip'][j][0] %></button>
-                		
+
                 		<% } %></label>
 			              </p>
                 		<% } %>
@@ -145,7 +145,9 @@
       </div>
   </div>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="/javascripts/main.js"></script>
     <script>

@@ -73,7 +73,9 @@
     </div>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="/javascripts/main.js"></script>
     <script>
@@ -87,7 +89,7 @@
             console.log('clicked on add button');
             x++; //text box increment
             $('#numberOfSteps').val(x);
-              
+
             var appText = '<h3 style="text-align:center;">Equipment</h3><label for="name">Name</label><input id="name'+x+'" class="form-control" type="text" name="name" value=""><label for="desc">Description</label><br><textarea id="desc'+x+'" name="desc" rows="8" cols="40" maxlength="100" spellcheck="true"></textarea><br><label for="imageUrl">Image Url</label><input id="imageUrl'+x+'" class="form-control" type="text" name="imageUrl" value=""><label for="power">Does this require power?</label><input id="power0" class="form-control" type="checkbox" name="power" value="">';
             $("#equipment").append(appText); //add input box
         });
